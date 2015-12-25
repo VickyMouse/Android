@@ -12,6 +12,7 @@
 ```groovy
 apply plugin: 'com.android.application'
 ```
+
 	`android {...}`用于配置所有Android相关的编译选项:
 	- `compileSdkVersion`指定编译目标（compilation target）；
 
