@@ -1,5 +1,4 @@
 # Build System
----
 
 ## Configuring Gradle Builds
 
@@ -24,5 +23,7 @@ apply plugin: 'com.android.application'
    - `buildTypes`控制如何编译并打包app。编译系统默认定义两种build types：debug和release。
 
    - `dependencies`在`android`元素的外面，并跟在它后面。它定义了模块的依赖。
+
 ---
+
 ### Declare dependencies
