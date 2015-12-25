@@ -1,9 +1,6 @@
 # Build System
-
 ## Configuring Gradle Builds
-
 ### Build Configuration Basics
-
 1. AS项目顶层及每个模块各自有一个编译文件，文件名为build.gradle；
 2. build.gradle都是普通的text文件，使用Groovy语法；
 3. 大部分情况下，仅需要编辑模块级的编译文件;
@@ -11,7 +8,7 @@
    ```groovy
    apply plugin: 'com.android.application'
    ```
-	 
+
    - `compileSdkVersion`指定编译目标（compilation target）；
 
    - `buildToolsVersion`指定使用哪个版本的build tools；
@@ -21,8 +18,7 @@
 
    - `buildTypes`控制如何编译并打包app。编译系统默认定义两种build types：debug和release。
 
-   - `dependencies`在`android`元素的外面，并跟在它后面。它定义了模块的依赖。
+5. `dependencies`在`android`元素的外面，并跟在它后面。它定义了模块的依赖。
 
 ---
-
 ### Declare dependencies
