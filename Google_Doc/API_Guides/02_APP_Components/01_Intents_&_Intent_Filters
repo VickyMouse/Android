@@ -1,0 +1,49 @@
+# Intents & Intent Filters - Common Intents
+
+可以通过一个 `Intent` 对象（`implicit intent`）描述要采取的 `action`，从而启动其他 app 的 activity。
+
+当调用 `startActivity()` 或 `startActivityForResult()` 并传入一个 `implicit intent` 时，系统会找到可以处理这个 intent 的 app 并启动相应的 activity。
+
+- 如果有多个 app 可以处理该 intent，系统会弹出一个对话框，供用户选择想使用的 app；
+- 如果设备上没有一个 app 可以接受此 implicit intent，则 app 在调用 `startActivity()` 的时候会 crash。调用前可以先使用  `resolveActivity()` 来验证是否存在可以接受的 app。
+
+``` java
+public void createAlarm(String message, int hour, int minutes) {
+    Intent intent = new Intent(AlarmClock.ACTION_SET_ALARM)
+            .putExtra(AlarmClock.EXTRA_MESSAGE, message)
+            .putExtra(AlarmClock.EXTRA_HOUR, hour)
+            .putExtra(AlarmClock.EXTRA_MINUTES, minutes);
+    if (intent.resolveActivity(getPackageManager()) != null) {
+        startActivity(intent);
+    }
+}
+```
+
+---
+
+|     Category   |          To Do        |         Action       |          Data       |             Notes           |
+| -------------- | --------------------- | -------------------- | ------------------- | --------------------------- |
+|Alarm Clock     |Create an alarm        |ACTION_SET_ALARM      |                     |Android 2.3 (API level 9)    |
+|Alarm Clock     |Create a timer         |ACTION_SET_TIMER      |                     |Android 4.4 (API level 19)   |
+|Alarm Clock     |Show all alarms        |ACTION_SHOW_ALARMS    |                     |Android 4.4 (API level 19)   |
+|Calendar        |Add a calendar event   |ACTION_INSERT         |Events.CONTENT_URI   |Android 4.4 (API level 19)   |
+……
+
+---
+
+## Verify Intents with the Android Debug Bridge
+
+为了验证 app 对想支持的 intent 有响应，可以使用 `adb` 工具来发起特定的 intent：
+
+- 配置一台用于开发的 Android 设备或虚拟机；
+- 安装支持指定 intent 的app；
+- 使用 `adb` 发起 intent：
+    ```
+    adb shell am start -a <ACTION> -t <MIME_TYPE> -d <DATA> -e <EXTRA_NAME> <EXTRA_VALUE> -n <ACTIVITY>
+    ```
+    eg:
+    ```
+    adb shell am start -a android.intent.action.DIAL -d tel:555-5555 -n org.example.MyApp/.MyActivity
+    ```
+
+- 如果定义了所需的 intent filter，app 应该会处理此intent。
